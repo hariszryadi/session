@@ -13,6 +13,12 @@ $not_found = false;
 foreach ($list_users as $key => $user) {
     if ($user['email'] == $_REQUEST['email']) {
         if ($user['password'] == $_REQUEST['password']) {
+
+            if (isset($_REQUEST['remember'])) {
+                setcookie('login', 'true', time() + 60);
+                setcookie('key', $_REQUEST['email'], time() + 60);
+            }
+            
             $_SESSION['email'] = $_REQUEST['email'];
             $_SESSION['login'] = true;
             header("Location: index.php");

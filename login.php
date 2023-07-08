@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (isset($_COOKIE['login']) && isset($_COOKIE['key'])) {
+    if ($_COOKIE['login'] == 'true') {
+        $_SESSION['login'] = true;
+        $_SESSION['email'] = $_COOKIE['key'];
+    }
+}
+
 if (isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
@@ -37,6 +44,10 @@ if (isset($_SESSION['login'])) {
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember" class="form-label">Remember me</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
